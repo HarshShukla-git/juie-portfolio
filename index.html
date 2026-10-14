@@ -2,7 +2,10 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f19" id="themeColorMeta" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Juie Deshmukh | RPA Tester & Senior QA Specialist</title>
   <meta name="description" content="Portfolio of Juie Deshmukh - RPA Tester & QA Professional with nearly 6 years of experience in RPA validation, healthcare systems (Epic, Tapestry), UiPath, and test automation." />
   
@@ -18,6 +21,7 @@
       --bg-card: rgba(18, 24, 38, 0.75);
       --bg-card-hover: rgba(26, 34, 54, 0.95);
       --nav-bg: rgba(15, 23, 42, 0.85);
+      --nav-menu-bg: #0f172a;
       --border: rgba(255, 255, 255, 0.08);
       --border-highlight: rgba(99, 102, 241, 0.35);
       --primary: #6366f1;
@@ -41,6 +45,7 @@
       --bg-card: #ffffff;
       --bg-card-hover: #ffffff;
       --nav-bg: rgba(255, 255, 255, 0.9);
+      --nav-menu-bg: #ffffff;
       --border: rgba(0, 0, 0, 0.08);
       --border-highlight: rgba(99, 102, 241, 0.45);
       --primary: #4f46e5;
@@ -63,11 +68,22 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
       transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     }
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    button, .btn, .filter-btn, .theme-toggle-btn, .mobile-menu-btn {
+      touch-action: manipulation;
+    }
+
+    .btn:active, .filter-btn:active, .theme-toggle-btn:active, .mobile-menu-btn:active {
+      transform: scale(0.97);
     }
 
     body {
@@ -159,12 +175,13 @@
       border: 1px solid var(--border);
       color: var(--text-muted);
       cursor: pointer;
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.15rem;
       transition: all 0.2s ease;
     }
 
@@ -969,26 +986,276 @@
       color: var(--primary);
     }
 
-    /* Responsive */
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--heading);
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Responsive Design for iOS & Android */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+        padding-left: max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+      }
+
       nav {
-        padding: 10px 18px;
-        margin: 12px 16px 24px;
+        padding: 10px 14px;
+        margin: 10px 12px 20px;
+        border-radius: 16px;
+        position: sticky;
+        top: max(10px, env(safe-area-inset-top, 10px));
       }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
       .nav-links {
-        display: none;
+        display: flex;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        background: var(--nav-menu-bg);
+        border: 1px solid var(--border-highlight);
+        border-radius: var(--radius-md);
+        flex-direction: column;
+        padding: 10px 12px;
+        gap: 4px;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--border);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 101;
       }
-      .timeline::before {
-        left: 11px;
+
+      .nav-links.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
       }
-      .timeline-item {
-        padding-left: 36px;
+
+      .nav-links li {
+        width: 100%;
       }
-      .timeline-dot {
-        left: 2px;
+
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        padding: 11px 14px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        min-height: 44px;
+        color: var(--heading);
+        width: 100%;
       }
+
+      .nav-links a:hover, .nav-links a:active {
+        background: rgba(99, 102, 241, 0.12);
+        color: var(--primary);
+      }
+
+      h1 {
+        font-size: clamp(1.85rem, 7vw, 2.7rem);
+        line-height: 1.15;
+      }
+
+      .hero {
+        padding: 16px 0 16px;
+      }
+
+      .hero-role {
+        font-size: 1.02rem;
+      }
+
+      .hero-bio {
+        font-size: 0.94rem;
+        line-height: 1.65;
+        margin-bottom: 24px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 0.88rem;
+        min-height: 46px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
+      .metric-card {
+        padding: 14px 12px;
+      }
+
+      .metric-value {
+        font-size: clamp(1.45rem, 5vw, 1.65rem);
+      }
+
+      .metric-label {
+        font-size: 0.74rem;
+      }
+
+      .metric-sub {
+        font-size: 0.68rem;
+        line-height: 1.3;
+      }
+
+      .tech-ribbon {
+        margin-bottom: 30px;
+        padding: 14px 12px;
+      }
+
+      .ribbon-logos {
+        gap: 6px;
+      }
+
+      .ribbon-pill {
+        font-size: 0.74rem;
+        padding: 4px 10px;
+      }
+
+      .skills-filter-bar {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 2px 10px 2px;
+        gap: 8px;
+        scrollbar-width: none;
+        scroll-snap-type: x proximity;
+      }
+
+      .skills-filter-bar::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        flex-shrink: 0;
+        font-size: 0.8rem;
+        padding: 7px 14px;
+        min-height: 38px;
+        scroll-snap-align: start;
+      }
+
+      .skills-grid,
+      .projects-grid,
+      .two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .exp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .timeline::before {
+        left: 8px;
+      }
+
+      .timeline-item {
+        padding-left: 28px;
+      }
+
+      .timeline-dot {
+        left: 0;
+        width: 18px;
+        height: 18px;
+      }
+
+      .timeline-card {
+        padding: 18px 14px;
+      }
+
+      .exp-company {
+        font-size: 1.18rem;
+      }
+
+      .exp-role {
+        font-size: 0.92rem;
+      }
+
+      .bullet-list li {
+        font-size: 0.88rem;
+        padding-left: 16px;
+      }
+
+      .modal-overlay {
+        padding: 10px;
+        padding-top: max(10px, env(safe-area-inset-top, 10px));
+        padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+      }
+
+      .modal-content {
+        height: 90vh;
+        height: 90dvh;
+        max-height: 90dvh;
+        max-width: 100%;
+        border-radius: 14px;
+      }
+
+      .modal-header {
+        padding: 10px 14px;
+      }
+
+      .modal-title {
+        font-size: 0.92rem;
+      }
+
+      .modal-actions .btn {
+        padding: 6px 10px;
+        font-size: 0.78rem;
+      }
+
+      .modal-close-btn {
+        padding: 4px 10px;
+        font-size: 1.5rem;
+        min-width: 38px;
+        min-height: 38px;
+      }
+
+      footer {
+        padding-bottom: max(36px, calc(24px + env(safe-area-inset-bottom, 0px)));
+      }
+
+      #toast {
+        bottom: max(24px, calc(16px + env(safe-area-inset-bottom, 0px)));
       }
     }
   </style>
@@ -1001,20 +1268,25 @@
       <div class="brand-dot"></div>
       <span>Juie Deshmukh</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#summary">Summary</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="Juie_Deshmukh_Resume.pdf" download="Juie_Deshmukh_Resume.pdf" style="color: var(--accent); font-weight: 700;">📄 Download CV</a></li>
-      <li>
-        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Switch Light/Dark Mode" id="themeBtn">
-          🌙
-        </button>
-      </li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#summary" onclick="closeMobileMenu()">Summary</a></li>
+      <li><a href="#experience" onclick="closeMobileMenu()">Experience</a></li>
+      <li><a href="#skills" onclick="closeMobileMenu()">Skills</a></li>
+      <li><a href="#projects" onclick="closeMobileMenu()">Projects</a></li>
+      <li><a href="#education" onclick="closeMobileMenu()">Education</a></li>
+      <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+      <li><a href="Juie_Deshmukh_Resume.pdf" download="Juie_Deshmukh_Resume.pdf" style="color: var(--accent); font-weight: 700;" onclick="closeMobileMenu()">📄 Download CV</a></li>
     </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Switch Light/Dark Mode" id="themeBtn">
+        🌙
+      </button>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu" id="menuBtn">
+        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <div class="container">
@@ -1425,6 +1697,10 @@
         </div>
       </div>
       <div class="modal-body">
+        <div style="background: rgba(99, 102, 241, 0.12); padding: 8px 14px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #a5b4fc; flex-wrap: wrap; gap: 6px;">
+          <span>Viewing on mobile?</span>
+          <a href="Juie_Deshmukh_Resume.pdf" target="_blank" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.74rem;">Open Fullscreen PDF ↗</a>
+        </div>
         <iframe src="Juie_Deshmukh_Resume.pdf#toolbar=1" title="Juie Deshmukh Official Resume"></iframe>
       </div>
     </div>
@@ -1444,15 +1720,23 @@
   </footer>
 
   <script>
-    // Theme Switcher
+    // Theme Switcher & Mobile Status Bar Sync
+    function updateThemeMeta(theme) {
+      const meta = document.getElementById('themeColorMeta');
+      if (meta) {
+        meta.setAttribute('content', theme === 'dark' ? '#0b0f19' : '#f8fafc');
+      }
+    }
+
     function toggleTheme() {
       const html = document.documentElement;
       const current = html.getAttribute('data-theme') || 'dark';
       const next = current === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       const btn = document.getElementById('themeBtn');
-      btn.textContent = next === 'dark' ? '🌙' : '☀️';
+      if (btn) btn.textContent = next === 'dark' ? '🌙' : '☀️';
       localStorage.setItem('theme', next);
+      updateThemeMeta(next);
     }
 
     // Initialize Theme
@@ -1461,7 +1745,40 @@
       document.documentElement.setAttribute('data-theme', saved);
       const btn = document.getElementById('themeBtn');
       if (btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+      updateThemeMeta(saved);
     })();
+
+    // Mobile Menu Controls
+    function toggleMobileMenu() {
+      const links = document.getElementById('navLinks');
+      const btn = document.getElementById('menuBtn');
+      if (!links) return;
+      links.classList.toggle('active');
+      const isOpen = links.classList.contains('active');
+      if (btn) {
+        btn.setAttribute('aria-expanded', isOpen);
+        btn.innerHTML = isOpen
+          ? '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>'
+          : '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>';
+      }
+    }
+
+    function closeMobileMenu() {
+      const links = document.getElementById('navLinks');
+      const btn = document.getElementById('menuBtn');
+      if (links) links.classList.remove('active');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = '<svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>';
+      }
+    }
+
+    document.addEventListener('click', function(e) {
+      const nav = document.querySelector('nav');
+      if (nav && !nav.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
 
     // Skill Filter
     function filterSkills(cat, btn) {
